@@ -49,12 +49,14 @@ Note 3: if you don't have a own domain name than you will use cogniton's default
 
 
 Required envars:
+```sh
 export AWS_ACCESS_KEY_ID="CHANGE-ME"
 export AWS_SECRET_ACCESS_KEY="CHANGE-ME"
 export CLOUDFLARE_API_TOKEN="CHANGE-ME"
 
 # required if you use terraform cloud
 export TF_TOKEN="CHANGE-ME"
+````
 
 CLOUDFLARE_API_TOKEN this envar should be set even if you are not using Cloudflare. But you can set it with randam numbers or chars. So basically it should be exiest.
 
@@ -95,12 +97,14 @@ the following command to delete the infrastructure
 
 API Usage:
 1- /register
+```json
 POST
 {
   "username": "test.user@example.com",
   "name": "testuser",
   "password":"123456"
 }
+````
 
 2- /login
 POST
