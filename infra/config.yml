@@ -1,0 +1,44 @@
+region: eu-central-1          # change it with your aws region
+project_name: demo-game-api   # change it with your project name
+domain:
+  enabled: true              # if you want to use custom domain it should be true
+  provide: aws                # Amazon = aws or CloudFlare = cf
+  name: kruta.xyz             # your domain
+  subdomain: api              # Api Gateway subdomain
+endpoints:                    # you can add here to your new endpoints
+  login:
+    method: POST
+    auth: false
+  register:
+    method: POST
+    auth: false
+  confirmRegister:
+    method: POST
+    auth: false
+  resendCode:
+    method: POST
+    auth: false
+  forgotPassword:
+    method: POST
+    auth: false
+  confirmForgot:
+    method: POST
+    auth: false
+  getPlayer:
+    method: GET
+    auth: true
+  setPlayer:
+    method: POST
+    auth: true
+cognito:
+  email_from: no-reply                                # email from address. if domain enabled then it will work
+  email_subject: "Account Confirmation by code"       # if domain enabled then it will work
+  email_message: "Your confirmation code is {####}"   # if domain enabled then it will work
+  password_policy:                                    # password policy. you can customize it to your requirements.
+    minimum_length: 6
+    require_lowercase: false
+    require_numbers: false
+    require_symbols: false
+    require_uppercase: false
+apigateway:
+  stage: v1
