@@ -150,7 +150,7 @@ POST
 }
 ````
 
-7- /setPlayer
+7- /setPlayer\
 Header: Authorization (this token is in the login response)
 ```json
 POST
@@ -159,7 +159,7 @@ POST
 }
 ````
 
-8- /getPlayer
+8- /getPlayer\
 Header: Authorization (this token is in the login response)
 ```json
 GET
