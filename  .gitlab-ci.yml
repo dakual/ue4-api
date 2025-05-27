@@ -1,0 +1,72 @@
+variables:
+  RUNNER_TAGS: gitlab-org
+  TF_CLOUD_CREDENTIALS: |
+    credentials "app.terraform.io" {
+      token = "${TF_TOKEN}"
+    }
+
+default:
+  image:
+    name: hashicorp/terraform:latest
+    entrypoint: [""]
+
+stages:
+  - plan
+  - apply
+  - destroy
+
+
+.terraform:
+  variables:
+    PLAN: terroform.tfplan
+    OUTPUT: terroform-out.json
+  before_script:
+    - terraform --version
+    - echo "${TF_CLOUD_CREDENTIALS}" > "${HOME}/.terraformrc"
+    - terraform init -upgrade
+    - terraform workspace list
+  when: always
+  cache:
+    key: terroform-$CI_COMMIT_REF_SLUG
+    paths:
+      - .terraform
+  tags:
+    - ${RUNNER_TAGS}
+
+
+plan:
+  extends: .terraform
+  stage: plan
+  script:
+    - terraform plan -out=$PLAN
+  artifacts:
+    paths:
+      - ${PLAN}
+      - temp
+  resource_group: terroform
+
+
+apply:
+  extends: .terraform
+  stage: apply
+  script:
+    - terraform apply $PLAN
+    - terraform output -json >> $OUTPUT
+  artifacts:
+    paths:
+      - $OUTPUT
+  when: manual
+  resource_group: terroform
+  environment:
+    name: terroform
+
+
+destroy:
+  extends: .terraform
+  stage: destroy
+  script:
+    - terraform plan -destroy -out=$PLAN
+    - terraform apply -destroy $PLAN
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual

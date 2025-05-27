@@ -161,6 +161,6 @@ POST
 
 8- /getPlayer\
 Header: Authorization (this token is in the login response)
-```
+```json
 GET
 ````
