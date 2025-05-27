@@ -108,45 +108,59 @@ POST
 ````
 
 2- /login
+```json
 POST
 {
   "username": "test.user@example.com",
   "password": "123456"
 }
+````
 
 3- /confirmRegister
+```json
 POST
 {
   "username": "test.user@example.com",
   "code": "XXXXXX"
 }
+````
 
 4- /forgotPassword
+```json
 POST
 {
   "username": "test.user@example.com"
 }
+````
 
 5- /confirmForgot
+```json
 POST
 {
   "username": "test.user@example.com",
   "password": "123456",
   "code": "XXXXX"
 }
+````
 
 6- /resendCode
+```json
 {
   "username": "test.user@example.com"
 }
+````
 
 7- /setPlayer
 Header: Authorization (this token is in the login response)
+```json
 POST
 {
   json object
 }
+````
 
 8- /getPlayer
 Header: Authorization (this token is in the login response)
+```json
 GET
+````
