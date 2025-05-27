@@ -96,6 +96,7 @@ the following command to delete the infrastructure
 
 
 API Usage:
+
 1- /register
 ```json
 POST
